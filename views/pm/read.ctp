@@ -1,10 +1,4 @@
-<?php 
-	$css->link('/pm/css/pm', null, array(), false);
-	 $javascript->link('tiny_mce/tiny_mce_gzip', false);
-	 $javascript->link('tinyMCE.gz.bbcode', false);
-	 $javascript->link('tinyMCE.init.bbcode', false);
-?>
-<h2>Private Message: <?php echo $message['PmMessage']['subject'];?></h2>
+<h2 class="dialogTitle">Private Message: <?php echo $message['PmMessage']['subject'];?></h2>
 <table>
 	<tr class="pmRow">
 		<td>
@@ -43,15 +37,36 @@
 		</td>
 	</tr>
 </table>
-<div id="quickReply">
-<h2>Reply</h2>
-<?php
-	 echo $form->create('Pm', array('url' => array('controller' => 'pm', 'action' => 'sendMessage', $message['PmMessage']['slug'])));
-	 echo $form->input('subject', array('value' => 'Re: ' . $message['PmMessage']['subject']));
-	 echo $form->input('message', array('type' => 'textbox', 'rows' => 15, 'style' => 'width: 100%','class' => 'mceEditor','value' => '[quote='.$message['FromUser']['username'].']'.$message['PmMessage']['message'].'[/quote]'));
-?>
-	<div class="submit">
-		<input type="submit" id="replyButton" name="send" value="Send message">&nbsp;
-		<input type="submit" name="advanced" value="Goto advanced mode">
+<?php if ($message['PmMessage']['message_type'] == 'received') :?>
+	<div id="quickReply">
+	<h2>Reply</h2>
+	<?php
+		 echo $form->create('Pm', array('url' => array('controller' => 'pm', 'action' => 'sendMessage', $message['PmMessage']['slug'])));
+		 echo $form->input('subject', array('value' => 'Re: ' . $message['PmMessage']['subject']));
+		 echo $form->input('message', array('type' => 'textbox', 'class' => 'mceEditor','value' => '[quote='.$message['FromUser']['username'].']'.$message['PmMessage']['message'].'[/quote]'));
+	?>
+		<div class="submit">
+			<input type="submit" id="replyButton" name="send" value="Send message">&nbsp;
+			<input type="submit" name="advanced" value="Goto advanced mode">
+		</div>
 	</div>
-</div>
+	
+	<script type="text/javascript">
+	
+	</script>
+<?php endif; ?>
+
+<?php 
+	$css->link('/pm/css/pm', null, array(), false);
+	if ($message['PmMessage']['message_type'] == 'received')
+	{
+		if ($this->params['isAjax'])
+			echo $javascript->codeBlock("tinyMCE.execCommand('mceAddControl', true, 'PmMessage');");
+		else
+		{
+			$javascript->link('tiny_mce/tiny_mce_gzip', false);
+			$javascript->link('tinyMCE.gz.bbcode', false);
+			$javascript->link('tinyMCE.init.bbcode', false);
+		}
+	}
+?>

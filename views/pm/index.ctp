@@ -9,12 +9,31 @@
 
 <script type="text/javascript">
 	$("#pmTabs").tabs({
-		selected: 0
+		selected: 0,
+		cache: true,
+		spinner: 'Please wait...'
 	});
 
-	$("#pmTabs a").live('click', function() {
-		console.log(this);
-		$("#pmTabs div:visible").load($(this).attr('href'));
+	$('#pmTabs a.readLink').live('click', function() {
+		var id = new Date().getTime();	
+		$("#pmTabs").after('<div id="dialog_'+id+'"></div>');
+
+		$("#dialog_"+id)
+			.html('Loading')
+			.load($(this).attr('href'), function(){$("#dialog_"+id).dialog('option', 'title', $("#dialog_"+id).find('.dialogTitle').text())})
+			.dialog({
+				width: 500, 
+				resizable: false, 
+				close: function(event, ui){
+					$("#dialog_"+id).dialog('destroy');
+				}
+			});
+		
 		return false;
 	});
+
+	$("#pmTabs a:not(.readLink)").live('click', function() {
+		$("#pmTabs div:visible").load($(this).attr('href'));
+		return false;
+	});	
 </script>
