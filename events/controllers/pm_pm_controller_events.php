@@ -8,10 +8,10 @@ class PmPmControllerEvents extends AppControllerEvents
 		
 		if ($user !== null)
 		{
-			if (!isset($controller->PmMessage))
-				$controller->LoadModel('Pm.PmMessage');
+			if (!isset($controller->Message))
+				$controller->LoadModel('Pm.Message');
 			
-			$count = $controller->PmMessage->countNewMessages($user);
+			$count = $controller->Message->countNewMessages($user);
 			
 			if ($count == 1)
 			{

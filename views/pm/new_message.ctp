@@ -7,7 +7,7 @@
 	}
 
 	echo $javascript->link('jquery.form');
-	echo $form->create('PmMessage', array('action' => 'newMessage', 'url' => array('controller' => 'pm', 'action' => 'newMessage')));
+	echo $form->create('Message', array('action' => 'newMessage', 'url' => array('controller' => 'pm', 'action' => 'newMessage')));
 	echo $form->input('submit', array('type' => 'hidden'));
 	echo $form->input('ToUser', array('options' => $ToUser));
 	echo $form->input('subject');
@@ -19,14 +19,14 @@
 </div>
 </form>
 <?php 
-	echo $javascript->codeBlock("tinyMCE.execCommand('mceAddControl', true, 'PmMessageMessage');");
+	echo $javascript->codeBlock("tinyMCE.execCommand('mceAddControl', true, 'MessageMessage');");
 ?>
 <?php if(isset($ajaxLoad)):?>
 <script type="text/javascript">
-	$("#PmMessageNewMessageForm").submit(function (e) {
+	$("#MessageNewMessageForm").submit(function (e) {
 		var $this = $(this);
 		var type = e.originalEvent.explicitOriginalTarget.name;
-		$('#PmMessageSubmit').val(e.originalEvent.explicitOriginalTarget.name);
+		$('#MessageSubmit').val(e.originalEvent.explicitOriginalTarget.name);
 		$this.ajaxSubmit({
 			beforeSubmit: function() {
 				tinyMCE.triggerSave();

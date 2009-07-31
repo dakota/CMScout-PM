@@ -1,4 +1,4 @@
-<h2 class="dialogTitle">Private Message: <?php echo $message['PmMessage']['subject'];?></h2>
+<h2 class="dialogTitle">Private Message: <?php echo $message['Message']['subject'];?></h2>
 <table>
 	<tr class="pmRow">
 		<td>
@@ -11,20 +11,20 @@
 			<?php endif;?>
 		</td>
 		<td width="80%">
-			<a name="<?php echo $message['PmMessage']['id']; ?>"></a>
+			<a name="<?php echo $message['Message']['id']; ?>"></a>
 
-			<?php if ($message['PmMessage']['subject'] != '') :?>
+			<?php if ($message['Message']['subject'] != '') :?>
 				<div class="subject">
-					<?php echo $message['PmMessage']['subject'];?>
+					<?php echo $message['Message']['subject'];?>
 				</div>
 			<?php endif; ?>
 
 			<div class="created">
-				<?php echo $time->niceShort($message['PmMessage']['created']); ?>
+				<?php echo $time->niceShort($message['Message']['created']); ?>
 			</div>
 
-			<div class="pm" rel="<?php echo $message['FromUser']['username'];?>" id="<?php echo $message['PmMessage']['id']; ?>">
-				<?php echo $bbcode->parse($message['PmMessage']['message']);?>
+			<div class="pm" rel="<?php echo $message['FromUser']['username'];?>" id="<?php echo $message['Message']['id']; ?>">
+				<?php echo $bbcode->parse($message['Message']['message']);?>
 			</div>
 			<div class="editor" style="display:none;">
 			</div>
@@ -37,13 +37,13 @@
 		</td>
 	</tr>
 </table>
-<?php if ($message['PmMessage']['message_type'] == 'received') :?>
+<?php if ($message['Message']['message_type'] == 'received') :?>
 	<div id="quickReply">
 	<h2>Reply</h2>
 	<?php
-		 echo $form->create('Pm', array('url' => array('controller' => 'pm', 'action' => 'sendMessage', $message['PmMessage']['slug'])));
-		 echo $form->input('subject', array('value' => 'Re: ' . $message['PmMessage']['subject']));
-		 echo $form->input('message', array('type' => 'textbox', 'class' => 'mceEditor','value' => '[quote='.$message['FromUser']['username'].']'.$message['PmMessage']['message'].'[/quote]'));
+		 echo $form->create('Pm', array('url' => array('controller' => 'pm', 'action' => 'sendMessage', $message['Message']['slug'])));
+		 echo $form->input('subject', array('value' => 'Re: ' . $message['Message']['subject']));
+		 echo $form->input('message', array('type' => 'textbox', 'class' => 'mceEditor','value' => '[quote='.$message['FromUser']['username'].']'.$message['Message']['message'].'[/quote]'));
 	?>
 		<div class="submit">
 			<input type="submit" id="replyButton" name="send" value="Send message">&nbsp;
@@ -58,10 +58,10 @@
 
 <?php 
 	$css->link('/pm/css/pm', null, array(), false);
-	if ($message['PmMessage']['message_type'] == 'received')
+	if ($message['Message']['message_type'] == 'received')
 	{
 		if ($this->params['isAjax'])
-			echo $javascript->codeBlock("tinyMCE.execCommand('mceAddControl', true, 'PmMessage');");
+			echo $javascript->codeBlock("tinyMCE.execCommand('mceAddControl', true, 'Message');");
 		else
 		{
 			$javascript->link('tiny_mce/tiny_mce_gzip', false);
