@@ -1,36 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin>
-	<title>CMScout Private Messanging</title>
+	<id>a0f8adb2-4a87-430b-89f8-4df50de9cca8</id>
+	<title>CMScout Private Messaging</title>
 	<version>0.1</version>
+	<category>User Management</category>
 	<type>private_message</type>
-	<tagModels></tagModels>
-	<showUcp>true</showUcp>
-	<mainModel>Message</mainModel>
-	<extendsProfile>false</extendsProfile>	
-	<components>
-		<notifications>
-			<notification name="new_message" type="email" title="New private message"></notification>
-		</notifications>
-	</components>
-	<tables>
-		<table name="pm_messages" primary_key="id">
-			<columns>
-				<column name="id" type="int(11)" extra="NOT NULL AUTO_INCREMENT"></column>
-				<column name="slug" type="varchar(300)" extra="NOT NULL"></column>
-				<column name="subject" type="varchar(400)" extra="NOT NULL"></column>
-				<column name="message" type="longtext" extra="NOT NULL"></column>
-				<column name="created" type="datetime"></column>
-				<column name="from_user_id" type="int(11)" extra="NOT NULL"></column>
-				<column name="message_type" type="enum('message','draft')" extra="NOT NULL"></column>
-			</columns>
-		</table>
-		<table name="pm_messages_users" primary_key="id">
-			<columns>
-				<column name="id" extra="NOT NULL AUTO_INCREMENT"></column>
-				<column name="user_id" type="int(11)" extra="NOT NULL"></column>
-				<column name="pm_message_id" type="int(11)" extra="NOT NULL"></column>
-			</columns>
-		</table>
-	</tables>	
 </plugin>
-

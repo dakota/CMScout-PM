@@ -57,7 +57,7 @@
 <?php endif; ?>
 
 <?php 
-	$css->link('/pm/css/pm', null, array(), false);
+	$html->css('/pm/css/pm', null, array(), false);
 	if ($message['Message']['message_type'] == 'received')
 	{
 		if ($this->params['isAjax'])
