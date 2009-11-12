@@ -1,17 +1,17 @@
 <?php
-class Message extends PmAppModel
+class Message extends PrivateMessageAppModel
 {
 	var $name = "Message";
 	var $belongsTo = array('FromUser' => array('className' => 'User',
 												'fields' => array('FromUser.id', 'FromUser.username', 'FromUser.signature', 'FromUser.avatar')));
 	var $hasAndBelongsToMany = array('ToUser' => array('className' => 'User',
-														'with' => 'Pm.MessagesUser',
+														'with' => 'PrivateMessage.MessagesUser',
 														'fields' => array('ToUser.id', 'ToUser.username')));
 	var $actsAs = array('Sluggable' => array('label' => 'subject'));
 	
 	function fetchReceivedMessages($userId)
 	{
-		$this->bindModel(array('hasOne' => array('Pm.MessagesUser')));
+		$this->bindModel(array('hasOne' => array('PrivateMessage.MessagesUser')));
 		$messages = $this->find('all', array(
 				'contain' => array('MessagesUser', 'FromUser'),
 				'fields' => array('Message.*', 'MessagesUser.read', 'MessagesUser.new'),

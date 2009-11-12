@@ -1,5 +1,5 @@
 <?php
-class MessagesUser extends PmAppModel
+class MessagesUser extends PrivateMessageAppModel
 {
 	var $name = 'MessagesUser';
 }
